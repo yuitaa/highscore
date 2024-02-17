@@ -1,0 +1,108 @@
+* {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+.roboto-mono {
+  font-family: "Roboto Mono", monospace;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.filter {
+  text-align: center;
+}
+
+.leaderboard-container {
+  overflow-x: auto;
+}
+table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #fff9e0;
+}
+
+th {
+  background-color: #f9e79f;
+}
+
+@media only screen and (min-width: 800px) {
+  .main-container {
+    display: flex;
+  }
+  .left-wrapper {
+    width: 30%
+  }
+  .right-wrapper {
+    width: 70%;
+  }
+}
+
+.player::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 0.3em;
+}
+
+.player-STEAM::before {
+  background-image: url("https://cdn.discordapp.com/emojis/758599875020849152.png");
+}
+.player-PS4::before {
+  background-image: url("https://cdn.discordapp.com/emojis/758599875041951785.png");
+}
+.player-NIN::before {
+  background-image: url("https://cdn.discordapp.com/emojis/758599874618064927.png");
+}
+.player-XB1::before {
+  background-image: url("https://cdn.discordapp.com/emojis/758599875037888522.png");
+}
+.player-EPIC::before {
+  background-image: url("https://cdn.discordapp.com/emojis/1005028910876082327.png");
+}
+
+.data-seed {
+  color: #777;
+  cursor: pointer;
+  text-decoration: underline dotted;
+}
+
+.loading-dummy {
+  background: linear-gradient(223deg, #fff9e0, #f9e79f);
+  background-size: 400% 400%;
+  height: 2rem;
+
+  -webkit-animation: dummy 4s ease infinite;
+  -moz-animation: dummy 4s ease infinite;
+  animation: dummy 4s ease infinite;
+}
+
+@-webkit-keyframes dummy {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes dummy {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes dummy {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
