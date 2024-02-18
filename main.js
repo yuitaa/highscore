@@ -58,24 +58,7 @@ function seedInput() {
   updateData();
 }
 
-function updateData() {
-  const keys = ["mode", "difficulty", "period", "crashes", "seed", "week"];
-  const values = keys.map((id) => getFormData(id));
-
-  let data = keys.reduce((obj, key, index) => {
-    obj[key] = values[index];
-    return obj;
-  }, {});
-
-  if (!validateSeed(data["seed"])) {
-    delete data["seed"];
-  }
-  let searchParm = new URLSearchParams(Object.entries(data));
-  if (parm == searchParm.toString()) {
-    return;
-  }
-  parm = searchParm.toString();
-
+function resetTable() {
   let scoreTable = document.getElementById("score-table");
   scoreTable.textContent = "";
 
@@ -107,7 +90,28 @@ function updateData() {
     trElement.appendChild(td);
   });
   scoreTable.appendChild(trElement);
-  document.getElementById("dummy").classList.remove("invisible");
+}
+
+function updateData() {
+  const keys = ["mode", "difficulty", "period", "crashes", "seed", "week"];
+  const values = keys.map((id) => getFormData(id));
+
+  let data = keys.reduce((obj, key, index) => {
+    obj[key] = values[index];
+    return obj;
+  }, {});
+
+  if (!validateSeed(data["seed"])) {
+    delete data["seed"];
+  }
+  let searchParm = new URLSearchParams(Object.entries(data));
+  if (parm == searchParm.toString()) {
+    return;
+  }
+  parm = searchParm.toString();
+  resetTable();
+
+  document.getElementById("dummy").classList.remove("no-display");
 
   fetch(`${proxyUrl}?${searchParm.toString()}`)
     .then((response) => {
@@ -160,7 +164,8 @@ function getFormData(id) {
 }
 
 function putTableData(data) {
-  document.getElementById("dummy").classList.add("invisible");
+  resetTable();
+  document.getElementById("dummy").classList.add("no-display");
   let scoreTable = document.getElementById("score-table");
 
   for (let i in data) {
