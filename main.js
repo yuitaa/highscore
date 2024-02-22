@@ -84,11 +84,12 @@ function resetTable() {
   const timezone =
     timezoneOffsetSign + timezoneOffsetHours + ":" + timezoneOffsetMinutes;
 
-  thElements[2].textContent = `Date (${timezone})`;
+  thElements[2].textContent = `Date (UTC${timezone})`;
 
   thElements.forEach((td) => {
     trElement.appendChild(td);
   });
+  trElement.classList.add("border-bottom");
   scoreTable.appendChild(trElement);
 }
 
@@ -178,6 +179,7 @@ function putTableData(data) {
       data[i]["_id"],
       data[i]["build"]
     );
+    scoreTableRow.classList.add("border-bottom");
     scoreTable.appendChild(scoreTableRow);
   }
 }
