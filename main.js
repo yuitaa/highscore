@@ -41,6 +41,11 @@ function setSeed() {
   seedInput();
 }
 
+function setUserid() {
+  document.getElementById("userid").value = this.getAttribute("data-id");
+  useridInput();
+}
+
 function validateSeed(input) {
   const validChars = /^[a-zA-Z0-9\+\-]{5}[ACEGQSUWgikmwy02][EUIYgs]$/;
   return validChars.test(input);
@@ -56,6 +61,39 @@ function seedInput() {
     input.classList.add("is-invalid");
   }
   updateData();
+}
+
+function useridInput() {
+  const input = document.getElementById("userid");
+  input.classList.remove("is-valid", "is-invalid");
+  if (input.value) {
+    input.classList.add("is-valid");
+  } else {
+    input.classList.add("is-invalid");
+  }
+  updateData();
+}
+
+function checkIfValidData() {
+  (() => {
+    const input = document.getElementById("seed");
+    const isValid = validateSeed(input.value);
+    input.classList.remove("is-valid", "is-invalid");
+    if (isValid) {
+      input.classList.add("is-valid");
+    } else {
+      input.classList.add("is-invalid");
+    }
+  })();
+  (() => {
+    const input = document.getElementById("userid");
+    input.classList.remove("is-valid", "is-invalid");
+    if (input.value) {
+      input.classList.add("is-valid");
+    } else {
+      input.classList.add("is-invalid");
+    }
+  })();
 }
 
 function resetTable() {
@@ -94,7 +132,15 @@ function resetTable() {
 }
 
 function updateData() {
-  const keys = ["mode", "difficulty", "period", "crashes", "seed", "week"];
+  const keys = [
+    "mode",
+    "difficulty",
+    "period",
+    "crashes",
+    "seed",
+    "week",
+    "userid",
+  ];
   const values = keys.map((id) => getFormData(id));
 
   let data = keys.reduce((obj, key, index) => {
@@ -105,11 +151,25 @@ function updateData() {
   if (!validateSeed(data["seed"])) {
     delete data["seed"];
   }
+  if (!data["userid"]) {
+    delete data["userid"];
+  } else {
+    data["personalOnly"] = true;
+  }
+
   let searchParm = new URLSearchParams(Object.entries(data));
   if (parm == searchParm.toString()) {
     return;
   }
   parm = searchParm.toString();
+
+  if (`${searchParm}`) {
+    const url = `${location.origin}${location.pathname}?${searchParm}`;
+    history.replaceState(null, "", url);
+  } else {
+    const url = `${location.origin}${location.pathname}`;
+    history.replaceState(null, "", url);
+  }
   resetTable();
 
   document.getElementById("dummy").classList.remove("no-display");
@@ -119,7 +179,7 @@ function updateData() {
       return response.json();
     })
     .then((data) => {
-      putTableData(data)
+      putTableData(data);
     });
 }
 
@@ -140,7 +200,9 @@ function createScoreTable(rank, players, date, score, seed, id, build) {
     let playerElement = document.createElement("div");
     playerElement.classList.add("player");
     playerElement.classList.add("player-" + player["userid"].split("_")[0]);
+    playerElement.setAttribute("data-id", player["userid"]);
     playerElement.textContent = player["name"];
+    playerElement.addEventListener("click", setUserid);
     tdElements[1].appendChild(playerElement);
   });
 
@@ -189,5 +251,18 @@ window.onload = () => {
     document.getElementById(id).addEventListener("change", updateData)
   );
   document.getElementById("seed").addEventListener("input", seedInput);
+  document.getElementById("userid").addEventListener("input", useridInput);
+
+  for (let [key, value] of new URLSearchParams(location.search)) {
+    let inputElement = document.getElementById(key);
+    if (
+      inputElement != null &&
+      inputElement.classList.contains("search-input")
+    ) {
+      inputElement.value = value;
+    }
+  }
+
+  checkIfValidData();
   updateData();
 };

@@ -79,10 +79,13 @@ th {
   background-image: url("https://cdn.discordapp.com/emojis/1005028910876082327.png");
 }
 
-.data-seed {
-  color: #777;
+.data-seed, .player:hover {
   cursor: pointer;
   text-decoration: underline dotted;
+}
+
+.data-seed {
+  color: #777;
 }
 
 .loading-dummy {

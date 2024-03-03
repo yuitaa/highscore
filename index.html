@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <script src="main.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="main.js?1"></script>
+    <link rel="stylesheet" href="style.css?1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital@0;1&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
     <link rel="manifest" href="https://yuitaa.github.io/highscore/site.webmanifest">
     <link rel="mask-icon" href="https://yuitaa.github.io/highscore/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#f9e79f">
     <meta property="og:title" content="Unrailed! Highscore" />
     <meta property="og:url" content="https://yuitaa.github.io/highscore" />
     <meta property="og:image" content="https://yuitaa.github.io/highscore/android-chrome-512x512" />
@@ -29,9 +29,11 @@
     <div class="main-container">
         <div class="left-wrapper">
             <div class="p-2 m-1 border filter rounded">
-                <p class="fs-2">Filter</p>
+                <a href="./" class="link-secondary">
+                    <p class="fs-2 filter">Filter</p>
+                </a>
 
-                <select class="form-select mb-2" aria-label="mode" id="mode">
+                <select class="form-select mb-2 search-input" aria-label="mode" id="mode">
                     <option value="11">Endless</option>
                     <option value="5">Time</option>
                     <option value="1">Spooky</option>
@@ -41,14 +43,14 @@
                     <option value="weeklyChallenge">Weekly-Challenge</option>
                 </select>
 
-                <select class="form-select mb-2" aria-label="difficulty" id="difficulty">
+                <select class="form-select mb-2 search-input" aria-label="difficulty" id="difficulty">
                     <option value="0">Easy</option>
                     <option value="1">Medium</option>
                     <option value="2">Hard</option>
                     <option value="3">Extreme</option>
                 </select>
 
-                <select class="form-select mb-2" aria-label="period" id="period">
+                <select class="form-select mb-2 search-input" aria-label="period" id="period">
                     <option value="all">All Time</option>
                     <option value="year">Year</option>
                     <option value="month">Month</option>
@@ -56,7 +58,7 @@
                     <option value="day">Day</option>
                 </select>
 
-                <select class="form-select mb-2" aria-label="crashes" id="crashes">
+                <select class="form-select mb-2 search-input" aria-label="crashes" id="crashes">
                     <option value="0">No checkpoints</option>
                     <option value="1">0 Crashes</option>
                     <option value="7">Less than 10 Crashes</option>
@@ -64,20 +66,25 @@
                 </select>
 
                 <hr>
-
                 <div class="mb-3">
                     <label for="seed" class="form-label mb-1">Seed</label>
-                    <input type="text" class="form-control is-invalid" id="seed" placeholder="Seed">
+                    <input type="text" class="form-control is-invalid search-input" id="seed" placeholder="Seed">
                 </div>
 
                 <hr>
                 <label for="week" class="form-label mb-1">Weekly-Challenge-week</label>
-                <select class="form-select mb-2" aria-label="week" id="week">
+                <select class="form-select mb-2 search-input" aria-label="week" id="week">
                     <option value="0">Current week</option>
                     <option value="1">1 week ago</option>
                     <option value="2">2 weeks ago</option>
                     <option value="3">3 weeks ago</option>
                 </select>
+
+                <hr>
+                <div class="mb-3">
+                    <label for="" class="form-label mb-1">Player ID</label>
+                    <input type="text" class="form-control is-invalid search-input" id="userid" placeholder="Player ID">
+                </div>
             </div>
         </div>
         <div class="right-wrapper">
