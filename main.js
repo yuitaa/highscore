@@ -37,7 +37,8 @@ function formatDate(date) {
 }
 
 function setSeed() {
-  document.getElementById("seed").value = this.textContent;
+  const seed = this.textContent;
+  document.getElementById("seed").value = seed;
   seedInput();
 }
 
@@ -56,6 +57,32 @@ function seedInput() {
   const isValid = validateSeed(input.value);
   input.classList.remove("is-valid", "is-invalid");
   if (isValid) {
+    const seed = document.getElementById("seed").value;
+    const difficultyPatterns = [
+      {"pattern": /^.{5}[AQgw]/, "difficulty": "0"},
+      {"pattern": /^.{5}[CSiy]/, "difficulty": "1"},
+      {"pattern": /^.{5}[EUk0]/, "difficulty": "2"},
+      {"pattern": /^.{5}[GWm2]/, "difficulty": "3"},
+      {"pattern": /^.{5}[IYo4]/, "difficulty": "4"},
+    ]
+    const modePatterns = [
+      {"pattern": /^.{6}s/, "mode": "11"},
+      {"pattern": /^.{6}U/, "mode": "5"},
+      {"pattern": /^.{6}E/, "mode": "1"},
+      {"pattern": /^.{6}Y/, "mode": "6"},
+      {"pattern": /^.{6}g/, "mode": "8"},
+      {"pattern": /^.{6}I/, "mode": "2"},
+    ]
+    difficultyPatterns.forEach((pattern)=>{
+      if(pattern["pattern"].test(seed)){
+        document.getElementById("difficulty").value = pattern["difficulty"];
+      }
+    });
+    modePatterns.forEach((pattern)=>{
+      if(pattern["pattern"].test(seed)){
+        document.getElementById("mode").value = pattern["mode"];
+      }
+    });
     input.classList.add("is-valid");
   } else {
     input.classList.add("is-invalid");
